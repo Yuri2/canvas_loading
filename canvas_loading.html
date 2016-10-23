@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" c/>
+    <title> 页面名称 </title>
+<style type="text/css">
+#div {
+}
+#canvas{border-radius: 50%;margin:20px auto;background: #000;overflow: hidden;}
+</style>
+</head>
+<body>
+<canvas id="canvas" width="120" height="120"></canvas>
+<script type="text/javascript">
+function G_canvas(id)
+{
+    this.canvas = document.getElementById(id);
+    this.cxt = this.canvas.getContext("2d");
+    this.width = this.canvas.width-0;
+    this.height = this.canvas.height-0;
+    this.loading = function(i)            //渲染loading
+    {
+        this.cxt.strokeStyle = "#59507A";
+        this.cxt.fillStyle = "#16161b";
+        this.cxt.lineWidth = 2;
+        this.cxt.beginPath();
+        this.cxt.arc(this.width>>1,this.height>>1,60,0,2*Math.PI,false);
+        this.cxt.closePath();
+        this.cxt.fill();
+        this.cxt.stroke();
+        this.cxt.strokeStyle = "#83b0fc";
+        this.cxt.lineWidth = 5;
+        this.cxt.lineCap= "round";
+        this.cxt.beginPath();
+        this.cxt.arc(this.width>>1,this.height>>1,50,-0.5*Math.PI,2*Math.PI*(i-0.25),false);
+        this.cxt.stroke();
+        this.cxt.fillStyle = "#6699ff";
+        this.cxt.font = "18px Arial";
+        this.cxt.textAlign = "center";
+        this.cxt.fillText("Loading...",this.width>>1,this.height>>1);
+        this.cxt.fillText(Math.round(i*100)+"%",this.width>>1,(this.height>>1)+20);
+    }
+    this.start = function (i) {
+        this.loading(i)
+        if (i<1)
+            setTimeout(this.start.bind(this,i+0.01), 50);
+    }
+}
+var g = new G_canvas("canvas");
+g.start(0)
+</script>
+</body>
+</html>
